@@ -1,0 +1,48 @@
+name: Build HelloPurpur Plugin
+
+# Trigger on push or pull request to main
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1️⃣ Checkout repository
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 2️⃣ Set up JDK 21
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+
+      # 3️⃣ Verify Java version
+      - name: Check Java version
+        run: java -version
+
+      # 4️⃣ Cache Maven packages for faster builds
+      - name: Cache Maven packages
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+
+      # 5️⃣ Build plugin with Maven
+      - name: Build with Maven
+        run: mvn clean package -B -e
+
+      # 6️⃣ Upload the plugin JAR as artifact
+      - name: Upload JAR artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: HelloPurpur
+          path: target/*.jar
