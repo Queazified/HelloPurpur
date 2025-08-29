@@ -10,33 +10,38 @@
     <packaging>jar</packaging>
 
     <name>HelloPurpur</name>
-    <description>A simple Purpur plugin broadcasting startup message</description>
+    <description>A Purpur plugin broadcasting a startup message</description>
 
     <properties>
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.release>21</maven.compiler.release>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
     <repositories>
-        <!-- Paper / Purpur repository -->
+        <!-- Purpur Snapshots Repository -->
+        <repository>
+            <id>purpur-repo</id>
+            <url>https://repo.purpurmc.org/snapshots/</url>
+        </repository>
+        <!-- Paper / Maven Central fallback -->
         <repository>
             <id>papermc-repo</id>
-            <url>https://papermc.io/repo/repository/maven-public/</url>
+            <url>https://repo.papermc.io/repo/repository/maven-public/</url>
         </repository>
     </repositories>
 
     <dependencies>
-        <!-- Purpur / Paper API -->
+        <!-- Purpur API -->
         <dependency>
-            <groupId>io.papermc.paper</groupId>
-            <artifactId>paper-api</artifactId>
+            <groupId>org.purpurmc.purpur</groupId>
+            <artifactId>purpur-api</artifactId>
             <version>1.20.2-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
 
-        <!-- Optional: Kyori Adventure for colored text & MiniMessage -->
+        <!-- Kyori Adventure API for messages -->
         <dependency>
             <groupId>net.kyori</groupId>
             <artifactId>adventure-api</artifactId>
@@ -51,7 +56,7 @@
 
     <build>
         <plugins>
-            <!-- Maven Compiler Plugin -->
+            <!-- Maven Compiler -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -61,7 +66,7 @@
                 </configuration>
             </plugin>
 
-            <!-- Maven Shade Plugin (optional, if you want a fat JAR) -->
+            <!-- Maven Shade Plugin (optional if you want fat JAR) -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
