@@ -1,4 +1,4 @@
-name: Build Purpur Plugin
+name: Build HelloPurpur Plugin
 
 on:
   push:
